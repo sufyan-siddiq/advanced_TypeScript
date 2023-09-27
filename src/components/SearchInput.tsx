@@ -1,5 +1,5 @@
-import React from "react";
-
+import React, { useEffect } from "react";
+import useDebounce from "../hooks/hooks";
 
 export interface ISearchInput {
     onChange: React.ChangeEventHandler<Element>;
@@ -8,13 +8,19 @@ export interface ISearchInput {
 export const SearchInput = (props: ISearchInput) => {
 
     const { value, onChange } = props
-    console.log("value", value)
+    const debounceQuery = useDebounce(value, 250)
+    useEffect(() => {
+        if (debounceQuery !== "") {
+            console.log("debounceQuery", debounceQuery)
+
+        }
+    }, [value])
     return (
-        <div>
-            <h2>
+        <>
+            <h1>
                 Search try me!
-            </h2>
+            </h1>
             <input placeholder="search..." type="text" value={value} onChange={onChange} />
-        </div>
+        </>
     )
 }

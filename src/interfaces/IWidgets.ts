@@ -1,5 +1,11 @@
 export interface IWidgets {
     title: string,
-    hello: string,
+    description:string
+    id: number,
+    rating: number,
+    date: string,
+    created: string,
+    updates: string,
+    isSpeacialCard: boolean,
 
 }

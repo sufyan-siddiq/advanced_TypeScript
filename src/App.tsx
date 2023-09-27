@@ -1,66 +1,63 @@
-import React, { ChangeEventHandler, useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 import { SearchInput } from './components/SearchInput';
 import { Person } from './mockdata/Person';
 import { Widgets } from './mockdata/Widge';
 import { genericSearch } from './utils/genericSeardch';
+import useDebounce from './hooks/hooks';
 
 export interface IApp {
-  // query: string | undefined;
-  // e: React.ChangeEventHandler
-  onChange: () => void;
-
 }
 function App() {
 
-  const [query, setQuery] = useState<string>()
-
+  const [query, setQuery] = useState<string>("")
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setQuery(e.target.value)
+  }
   return (
     <div >
-      <SearchInput value={query} onChange={genericSearch(query)} />
+      <SearchInput value={query} onChange={handleChange} />
       <div>
         <h3>Widgets :</h3>
-        {Widgets.map((item) => {
+        {Widgets.filter(widge => genericSearch(widge, ["title", "description",], query, false)).map(widge => {
           return (
-            <div key={item.id}>
+            <div key={widge.id}>
               <h1>
-                {item.title}
-              </h1>
-
-              <h1>
-                {item.description}
+                {widge.title}
               </h1>
               <h1>
-                {item.created}
+                {widge.description}
               </h1>
               <h1>
-                {item.rating}
+                {widge.created}
               </h1>
               <h1>
-                {item.updates}
+                {widge.rating}
+              </h1>
+              <h1>
+                {widge.updates}
               </h1>
             </div>
           )
         })}
       </div>
       <div>
-
         <h3>Person :</h3>
-        {Person.map((item, index) => {
+        {Person.filter(person => genericSearch(person, ["firstName", "lastName"], query, false)).map(person => {
           return (
-            <div key={index}>
+            <div key={person.id}>
               <h1>
-                {item.firstName}
+                {person.firstName}
               </h1>
 
               <h1>
-                {item.lastName}
+                {person.lastName}
               </h1>
               <h1>
-                {item.birthday}
+                {person.birthday}
               </h1>
               <h1>
-                {item.eyeColor}
+                {person.eyeColor}
               </h1>
             </div>
           )

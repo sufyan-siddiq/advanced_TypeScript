@@ -12,7 +12,6 @@ export function genericSearch<T>(object: T, properties: Array<keyof T>, query: s
             if (shouldCaseSensitive) {
                 console.log("if")
                 return value.toString().includes(query)
-                // return console.log("value", value.toString().includes(query))
             }
             else {
                 console.log("else")
